@@ -1,0 +1,37 @@
+{
+    "name": "hyvor/laravel-e2e",
+    "description": "Helpers for Laravel E2E testing",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hyvor\\LaravelE2E\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Supun",
+            "email": "supun@hyvor.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^2.6",
+        "phpstan/phpstan": "^1.10"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hyvor\\LaravelE2E\\ServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: "Tests on PHP ${{ matrix.php }}${{ matrix.name_suffix }}"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [ '8.0', '8.1' ]
+
+    steps:
+      -   name: Checkout
+          uses: actions/checkout@v2
+
+      -   name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            coverage: "none"
+            php-version: "${{ matrix.php }}"
+            ini-file: development
+            tools: composer:v2
+
+      -   name: Install dependencies
+          run: composer update --ansi --no-progress
+
+      -   name: Run tests
+          run: vendor/bin/phpunit --colors=always --verbose
+
+  static_analysis:
+    name: Static analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      -   name: Checkout
+          uses: actions/checkout@v2
+
+      -   name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            coverage: "none"
+            php-version: "8.1"
+            ini-file: development
+
+      -   name: Install dependencies
+          run: composer update --ansi --no-progress
+
+      -   name: Run phpstan
+          run: vendor/bin/phpstan analyse --ansi --no-progress
