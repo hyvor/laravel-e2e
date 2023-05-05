@@ -45,12 +45,10 @@ jobs:
       -   name: Run tests
           run: vendor/bin/pest
           env:
-            DB_CONNECTION: mysql
             DB_HOST: 127.0.0.1
             DB_DATABASE: test
             DB_USERNAME: user
             DB_PASSWORD: secret
-            DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
   static_analysis:
     name: Static analysis
