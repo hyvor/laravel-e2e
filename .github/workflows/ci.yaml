@@ -43,7 +43,7 @@ jobs:
           run: composer update --ansi --no-progress
 
       -   name: Run tests
-          run: vendor/bin/phpunit --colors=always --verbose
+          run: vendor/bin/pest
           env:
             DB_CONNECTION: mysql
             DB_HOST: 127.0.0.1
