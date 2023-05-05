@@ -11,7 +11,7 @@
 |
 */
 
-// uses(Tests\TestCase::class)->in('Feature');
+uses(Hyvor\LaravelE2E\Tests\TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
