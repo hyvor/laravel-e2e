@@ -11,6 +11,18 @@ jobs:
     name: "Tests on PHP ${{ matrix.php }}${{ matrix.name_suffix }}"
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: secretroot
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     strategy:
       matrix:
         php: [ '8.1', '8.2' ]
@@ -32,6 +44,13 @@ jobs:
 
       -   name: Run tests
           run: vendor/bin/phpunit --colors=always --verbose
+          env:
+            DB_CONNECTION: mysql
+            DB_HOST: 127.0.0.1
+            DB_DATABASE: test
+            DB_USERNAME: user
+            DB_PASSWORD: secret
+            DB_PORT: ${{ job.services.mysql.ports[3306] }}
 
   static_analysis:
     name: Static analysis
