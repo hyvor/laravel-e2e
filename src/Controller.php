@@ -111,4 +111,23 @@ class Controller
 
     }
 
+    public function function(Request  $request) : JsonResponse
+    {
+
+        $data = $request->validate([
+            'function' => 'string|required',
+            'args' => 'array'
+        ]);
+
+        $function = $data['function'];
+        $args = $data['args'] ?? [];
+
+        if (!is_callable($function))
+            abort(422, 'Function does not exist');
+
+        $response = call_user_func_array($function, $args);
+        return Response::json($response);
+
+    }
+
 }

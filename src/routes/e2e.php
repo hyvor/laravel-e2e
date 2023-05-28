@@ -13,6 +13,7 @@ if (App::environment('local', 'testing')) {
         Route::post('factory', [Controller::class, 'factory']);
         Route::post('query', [Controller::class, 'query']);
         Route::post('select', [Controller::class, 'select']);
+        Route::post('function', [Controller::class, 'function']);
 
     });
 
