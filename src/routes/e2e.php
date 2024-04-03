@@ -6,7 +6,7 @@ use Hyvor\LaravelE2E\Controller;
 
 if (App::environment('local', 'testing')) {
 
-    Route::prefix('_testing')->group(function () {
+    Route::prefix(strval(config('app.e2e.prefix', '_testing')))->group(function () {
 
         Route::post('artisan', [Controller::class, 'artisan']);
         Route::post('truncate', [Controller::class, 'truncate']);
