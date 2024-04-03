@@ -1,12 +1,17 @@
 <?php
 
+use Illuminate\Config\Repository;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Hyvor\LaravelE2E\Controller;
 
 if (App::environment('local', 'testing')) {
 
-    Route::prefix('_testing')->group(function () {
+    /** @var Repository  $config */
+    $config = config();
+    $prefix = $config->string('app.e2e.prefix', '_testing');
+
+    Route::prefix($prefix)->group(function () {
 
         Route::post('artisan', [Controller::class, 'artisan']);
         Route::post('truncate', [Controller::class, 'truncate']);
