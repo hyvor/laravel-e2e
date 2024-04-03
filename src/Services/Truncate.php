@@ -23,10 +23,7 @@ class Truncate
     private function truncateTablesOfConnection(?string $connection) : void
     {
 
-        $db = DB::connection($connection);
-
-        $tables = $db->getDoctrineSchemaManager()->listTableNames();
-
+        $tables = Schema::connection($connection)->getTableListing();
         Schema::disableForeignKeyConstraints();
 
         foreach ($tables as $table) {
