@@ -9,6 +9,7 @@ if (App::environment('local', 'testing')) {
 
     /** @var Repository  $config */
     $config = config();
+    /** @var string $prefix */
     $prefix = $config->get('app.e2e.prefix', '_testing');
 
     Route::prefix($prefix)->group(function () {
